@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
+var logger = require('morgan');
+var indexRouter = require('./routes')
+app.use(logger('dev'));
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -11,6 +14,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
         console.log('Mongo connection error');
     })
 
+app.use('/', indexRouter);
 app.listen(process.env.EXPRESS_PORT, (err) => {
     if (err) {
         console.log(err);
@@ -18,4 +22,5 @@ app.listen(process.env.EXPRESS_PORT, (err) => {
     }
     console.log(`server is running on port ${process.env.EXPRESS_PORT}`);
 })
+
 module.exports = app;
