@@ -3,7 +3,9 @@ var app = express();
 var mongoose = require('mongoose');
 var logger = require('morgan');
 var indexRouter = require('./routes')
+
 app.use(logger('dev'));
+app.use(express.static('records'))
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
