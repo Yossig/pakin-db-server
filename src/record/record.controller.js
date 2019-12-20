@@ -9,6 +9,16 @@ class recordCtrl {
             res.sendStatus(500);
         }
     }
+
+    async filter(req,res) {
+        try {
+            const keywords = req.body;
+            res.send(await recordService.filter(keywords));
+        } catch(err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+    }
 }
 
 module.exports = new recordCtrl();
