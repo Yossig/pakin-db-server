@@ -2,15 +2,21 @@ var recordModel = require('./record.model');
 
 class recordService {
     getAll() {
-        return recordModel.find({}).exec();
+        return this.findWithQuery({});
     }
 
     filter(keywords) {
+        let query = {};
+        
         if (keywords.length !== 0) {
-            return recordModel.find({ tags: { $all: keywords } }).exec();
-        } else {
-            return recordModel.find({}).exec();
+            query = { tags: { $all: keywords } }
         }
+
+        return this.findWithQuery(query);
+    }
+
+    findWithQuery(query) {
+        return recordModel.find(query).exec();
     }
 }
 
