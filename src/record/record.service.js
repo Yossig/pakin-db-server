@@ -7,7 +7,7 @@ class recordService {
 
     filter(keywords) {
         let query = {};
-        
+
         if (keywords.length !== 0) {
             query = { tags: { $all: keywords } }
         }
@@ -16,7 +16,7 @@ class recordService {
     }
 
     findWithQuery(query) {
-        return recordModel.find(query).exec();
+        return recordModel.find(query).sort({author: 1}).exec();
     }
 }
 
